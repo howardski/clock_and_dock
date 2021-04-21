@@ -124,16 +124,20 @@ Date.prototype.format = function (mask, utc) {
 	return dateFormat(this, mask, utc);
 };
 
-function talk(message) {
+function talk(message,ms) {
     var msg = new SpeechSynthesisUtterance();
     var voices = window.speechSynthesis.getVoices();
     msg.voice = voices[17];
     msg.text = message;
-    speechSynthesis.speak(msg);
+
+	window.setTimeout(function () {
+		speechSynthesis.speak(msg);
+	}, ms)
 }
 
 function schedule_msg(msg,ms) {
-    window.setTimeout(talk,ms,msg)
+	talk(msg,ms)
+    // window.setTimeout(talk,ms,msg)
 }
 
 if (!window.dash_clientside) { window.dash_clientside = {}; }
@@ -145,6 +149,14 @@ window.dash_clientside.clientside = {
         var schedule = JSON.parse(schedule_str);
         var now = new Date()
         var today = new Date().format('isoDate')
+
+		//TEST
+
+		for (let key of speechSynthesis.getVoices()) {
+			console.log(key.name, key.lang, key.voiceURI,key.localService)
+		}
+
+		//TEST
 
         if (today != document.getElementById('currentdate').innerHTML) {
             console.log('no schedules today, initializing schedule...')

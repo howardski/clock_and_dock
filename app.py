@@ -8,7 +8,7 @@ import json
 import datetime as dt
 
 SCHEDULE = {'morning_meeting':{
-    'time':'20:54:00',
+    'time':'20:41:45',
     'msg':'morning meeting',
     'isCountDown':False
     },
@@ -18,6 +18,8 @@ SCHEDULE = {'morning_meeting':{
     'isCountDown':True
     }
 }
+
+SCHEDULE['open']['time'] = dt.datetime.strftime(dt.datetime.now() + dt.timedelta(seconds=65),'%H:%M:%S')
 
 def gen_countdown(time,msg):
     '''
